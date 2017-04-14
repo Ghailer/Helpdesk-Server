@@ -18,10 +18,19 @@ namespace Helpdesk_Server
 
 
 
-        private void AddUser(string user)
-        {
-            SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username) VALUES (@Username)");
-            cmd.Parameters.AddWithValue("@Username", user);
+        private void AddUser(string user, bool admin)
+        {if (admin == false)
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username) VALUES (@Username)");
+                cmd.Parameters.AddWithValue("@Username", user);
+            }
+        else
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Users (Username, Admin) VALUES (@Username, @Admin)");
+                cmd.Parameters.AddWithValue("@Username", user);
+                cmd.Parameters.AddWithValue("@Admin", admin);
+            }
+
         }
 
 
